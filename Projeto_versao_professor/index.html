@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8"> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto Matador Monstro</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id="app">
+        <div class="panel scores">
+            <div class="score">
+                <h1 >Jogador</h1>
+                <div class="life-bar">
+                    <div class="life" 
+                        :class="{danger: playerLife < 20}"
+                        :style="{width: playerLife+'%'}"></div>
+                </div>                
+                <h1>{{playerLife}}%</h1>
+            </div>
+            <div class="score">
+                <h1>Monstro</h1>
+                <div class="life-bar">
+                    <div class="life" 
+                        :class="{danger: monsterLife < 20}"
+                        :style="{width: monsterLife+'%'}"></div>
+                </div>
+                <h1>{{monsterLife}}%</h1>
+            </div>
+        </div>
+        <div v-show="hasResult" class="panel  result ">
+            <h1 v-if='monsterLife == 0' class="wind"  >Você venceu!!! :)</h1>
+            <h1 v-else class="lose" >Você perdeu :(</h1>
+        </div>
+        <div class="panel buttons "> 
+            <template v-if="running">
+                <button @click="attack(false)" 
+                    class="btn attack">ataque</button>
+                <button  @click="attack(true)"
+                    class="btn especial-attack">ATAQUE ESPECIAL</button>
+                <button  @click="healAndHurt"  class="btn heal">CURAR</button>
+                <button @click="giveUp"  class="btn give-up">DESISTIR</button>
+            </template>           
+            <button v-else v-on:click="startGame" class="btn new-game">INICIAR NOVO JOGO</button>
+        </div>
+
+        <div v-if="log.length && playerLife != 0 && monsterLife != 0" 
+                class="panel logs">
+                    <ul>
+                        <li v-for="l in log"
+                            :class="l.css">{{l.text}}</li>
+                    </ul>
+        </div>
+    </div>
+</body>
+
+<script src="app.js"></script>
+
+</html>

@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto MatadorMosquito</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id="projeto">
+        <div class="players">
+            <div class="caixa">
+                <span class="titulo">Jogador</span>
+                <div class="borda">
+                    <div class="barra" :style="[larguraBarraPlayer]"></div>
+                </div>                
+                <span>{{percJogador}}%</span>
+            </div>
+            <div class="caixa">
+                <span class="titulo">Monstro</span>
+                <div class="borda">
+                    <div class="barra" :style="[larguraBarraMonstro]"></div>
+                </div>
+                <span>{{percMonstro}}%</span>
+            </div>
+        </div>
+        <div v-show="exibirMensagem" class="  mensagem">
+            <span v-if='playerVenceu' style="color: green;">Você venceu!!! :)</span>
+            <span v-else style="color: red;">Você perdeu :(</span>
+        </div>
+        <div class=" caixaButtons">
+            <button v-on:click="novoJogo" v-show="iniciar" class="btnIniciar">INICIAR NOVO JOGO</button>
+            <button @click="ataque" v-show="!iniciar" class="btns">ATAQUE</button>
+            <button  @click="ataqueEspecial" v-show="!iniciar" class="btns">ATAQUE ESPECIAL</button>
+            <button  @click="curar" v-show="!iniciar" class="btns">CURAR</button>
+            <button @click="desistir" v-show="!iniciar" class="btns">DESISTIR</button>
+        </div>
+
+        <div v-show='log' class=" panel logs">
+            <div v-for="m in mensagens" class="msglog">
+                <div v-if="m.player=='jogador'" class="msgArray" style="background-color: #3d8ba5;">{{m.mensagem}}</div>
+                <div v-if="m.player=='monstro'" class="msgArray" style="background-color: #d65b5b;">{{m.mensagem}}</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="app.js"></script>
+
+</html>
